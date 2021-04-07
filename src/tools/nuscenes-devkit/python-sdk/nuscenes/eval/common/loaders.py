@@ -229,12 +229,38 @@ def filter_eval_boxes(nusc: NuScenes,
 
     # Accumulators for number of filtered boxes.
     total, dist_filter, point_filter, bike_rack_filter = 0, 0, 0, 0
+    range_min = 0
+    range_max = 30
+    class_range_min= {
+        "car": range_min,
+        "truck": range_min,
+        "bus": range_min,
+        "trailer": range_min,
+        "construction_vehicle": range_min,
+        "pedestrian": range_min,
+        "motorcycle": range_min,
+        "bicycle": range_min,
+        "traffic_cone": range_min,
+        "barrier": range_min
+    }
+    class_range_max= {
+        "car": range_max,
+        "truck": range_max,
+        "bus": range_max,
+        "trailer": range_max,
+        "construction_vehicle": range_max,
+        "pedestrian": range_max,
+        "motorcycle": range_max,
+        "bicycle": range_max,
+        "traffic_cone": range_max,
+        "barrier": range_max
+    }
     for ind, sample_token in enumerate(eval_boxes.sample_tokens):
 
         # Filter on distance first.
         total += len(eval_boxes[sample_token])
         eval_boxes.boxes[sample_token] = [box for box in eval_boxes[sample_token] if
-                                          box.ego_dist < max_dist[box.__getattribute__(class_field)]]
+                                          (box.ego_dist < class_range_max[box.__getattribute__(class_field)] and ego_dist > class_range_max[box.__getattribute__(class_field)])]
         dist_filter += len(eval_boxes[sample_token])
 
         # Then remove boxes with zero points in them. Eval boxes have -1 points by default.
