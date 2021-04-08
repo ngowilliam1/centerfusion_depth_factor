@@ -230,7 +230,7 @@ def filter_eval_boxes(nusc: NuScenes,
     # Accumulators for number of filtered boxes.
     total, dist_filter, point_filter, bike_rack_filter = 0, 0, 0, 0
     range_min = 0
-    range_max = 30
+    range_max = 25
     class_range_min= {
         "car": range_min,
         "truck": range_min,

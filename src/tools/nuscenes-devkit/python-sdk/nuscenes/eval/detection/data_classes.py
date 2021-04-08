@@ -220,7 +220,8 @@ class DetectionMetrics:
     @property
     def mean_dist_aps(self) -> Dict[str, float]:
         """ Calculates the mean over distance thresholds for each label. """
-        return {class_name: np.mean(list(d.values())) for class_name, d in self._label_aps.items()}
+        kept_classes = ['car', 'truck', 'bus', 'trailer']
+        return {class_name: np.mean(list(d.values())) for class_name, d in self._label_aps.items() if (class_name in kept_classes)}
 
     @property
     def mean_ap(self) -> float:
@@ -231,10 +232,12 @@ class DetectionMetrics:
     def tp_errors(self) -> Dict[str, float]:
         """ Calculates the mean true positive error across all classes for each metric. """
         errors = {}
+        kept_classes = ['car', 'truck', 'bus', 'trailer']
         for metric_name in TP_METRICS:
             class_errors = []
             for detection_name in self.cfg.class_names:
-                class_errors.append(self.get_label_tp(detection_name, metric_name))
+                if detection_name in kept_classes:
+                    class_errors.append(self.get_label_tp(detection_name, metric_name))
 
             errors[metric_name] = float(np.nanmean(class_errors))
 
