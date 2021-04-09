@@ -260,7 +260,7 @@ def filter_eval_boxes(nusc: NuScenes,
         # Filter on distance first.
         total += len(eval_boxes[sample_token])
         eval_boxes.boxes[sample_token] = [box for box in eval_boxes[sample_token] if
-                                          (box.ego_dist < class_range_max[box.__getattribute__(class_field)] and ego_dist > class_range_max[box.__getattribute__(class_field)])]
+                                          (box.ego_dist < class_range_max[box.__getattribute__(class_field)] and ego_dist >= class_range_min[box.__getattribute__(class_field)])]
         dist_filter += len(eval_boxes[sample_token])
 
         # Then remove boxes with zero points in them. Eval boxes have -1 points by default.
