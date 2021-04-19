@@ -1,5 +1,8 @@
+[Project Paper](https://github.com/ngowilliam1/centerfusion_depth_factor/blob/main/CSC2547_Project_Report.pdf)
+
 # CenterFusion <!-- omit in toc --> 
- This repository contains the implementation of [CenterFusion: Center-based Radar and Camera Fusion for 3D Object Detection](https://arxiv.org/abs/2011.04841).
+
+This repository contains the implementation of [CenterFusion: Center-based Radar and Camera Fusion for 3D Object Detection](https://arxiv.org/abs/2011.04841).
 
 
 ![](figures/pillars.png)
